@@ -9,13 +9,13 @@ import axios from "axios";
 import "./App.css"
 
 //COMPONENTS
-import LandingPage from "./components/landingPage/landingPage";
+import LandingPage from "../src/views/landingPage/LandingPage";
 
 function App() {
 
   return (
     <div className="App">
-      {/* <h1>Henry Pokemon</h1> */}
+     
 
       <Routes>
         <Route path="/" element={<LandingPage />} />

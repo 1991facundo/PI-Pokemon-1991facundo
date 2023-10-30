@@ -1,7 +1,11 @@
-export const FETCH = "FETCH_POKEMONS";
-export const FETCH_BY_NAME = "FETCH_BY_NAME";
-export const FETCH_BY_ID = "FETCH_BY_ID";
+/*----------HTTP REQUEST STATUS----------*/
+export const FETCH_REQUEST = 'FETCH_REQUEST'
+export const FETCH_SUCCESS = 'FETCH_SUCCESS'
+export const FETCH_FAIL = 'FETCH_FAIL'
+/*--------------------------------------*/
 
-export const FILTER = "FILTER_POKEMONS";
 
-export const SORT = "SORT_POKEMONS";
+export const SEARCH = 'SEARCH'
+export const FILTER = 'FILTER'
+export const SORT = 'SORT'
+export const SET_PAGE = 'SET_PAGE'
