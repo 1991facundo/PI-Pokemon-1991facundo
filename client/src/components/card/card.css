@@ -1,0 +1,21 @@
+.card-container {
+  border: 2px solid #6fae3f;
+  border-radius: 30px 0px;
+  padding: 10px;
+  width: 250px;
+  margin: 10px;
+  box-shadow: 0 10px 20px rgb(0, 200, 90);
+  transition: transform 0.3s;
+  margin-top: 55px;
+  background: radial-gradient( #5b5a5a,#26216c, #5b5a5a);
+}
+
+.card-container:hover {
+  transform: scale(1.05);
+}
+
+.card-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

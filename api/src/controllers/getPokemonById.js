@@ -1,6 +1,6 @@
 const axios = require("axios");
 const getData = require("../utils/getData");
-const { Pokemon } = require("../db.js");
+const { Pokemon, Type } = require("../db.js");
 
 const getPokemonById = async (id) => {
   const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
@@ -8,13 +8,15 @@ const getPokemonById = async (id) => {
   let localPokemon;
 
   if (isNaN(id)) {
-    localPokemon = await Pokemon.findOne({ where: { id: id } });
+    localPokemon = await Pokemon.findOne({ where: { id: id }, include: Type });
   } else {
     localPokemon = await Pokemon.findOne({ where: { integerId: id } });
   }
 
   if (localPokemon) {
-    return localPokemon;
+    const localPokemonJSON = localPokemon.toJSON(); 
+    localPokemonJSON.types = localPokemon.types.map((type) => type.name); 
+    return localPokemonJSON; 
   } else if (!isNaN(id)) {
     const getPokemonByIdResponse = await axios(`${baseUrl}/${id}`);
     const data = getPokemonByIdResponse.data;

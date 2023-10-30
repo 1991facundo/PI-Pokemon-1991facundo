@@ -25,9 +25,11 @@ const getPokemons = async () => {
     );
 
     const dbPokemons = await Pokemon.findAll({ include: Type });
-    const dbPokemonsFiltered = getDB(dbPokemons)
+    const dbPokemonsFiltered = getDB(dbPokemons);
 
-    const allPokemons = [...dbPokemonsFiltered, ...apiPokemons]
+    const allPokemons = [...dbPokemonsFiltered, ...apiPokemons];
+
+   
 
     return allPokemons;
   } catch (error) {
@@ -36,4 +38,3 @@ const getPokemons = async () => {
 };
 
 module.exports = getPokemons;
-

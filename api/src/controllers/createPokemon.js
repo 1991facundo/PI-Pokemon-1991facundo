@@ -9,17 +9,27 @@ const createPokemon = async ({ name, image, life, attack, defense, speed, height
   const existingPokemon = await Pokemon.findOne({ where: { name: name } });
   if(existingPokemon){throw Error ('Pokemon with this name already exists')}
 
-  //chekear en la API que no exista un pokemon con ese nombre
-  const response = await axios.get(`${baseUrl}${name.toLowerCase()}`);
-  if (response.data) {throw Error('Pokemon with this name already exists');}
+  // //chekear en la API que no exista un pokemon con ese nombre
+  // const response = await axios.get(`${baseUrl}${name.toLowerCase()}`);
+  // if (response.data) {throw Error('Pokemon with this name already exists');}
+  try {
+    const response = await axios.get(`${baseUrl}${name.toLowerCase()}`);
+    if (response.data) {
+      throw Error("Pokemon with this name already exists");
+    }
+  } catch (error) {
+    if (error.response && error.response.status !== 404) {
+      throw error;
+    }
+  }
     
 
     let typesInstances = [];
     
-    for (let typeName of types) {
-      let typeInstance = await Type.findOrCreate({ where: { name: typeName } });
-      typesInstances.push(typeInstance[0]);
-    }
+   for (let typeName of types) {
+     let typeInstance = await Type.findOrCreate({ where: { name: typeName } });
+     typesInstances.push(typeInstance[0]);
+   }
 
     let newPokemon = await Pokemon.create({
       name,

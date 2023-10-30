@@ -3,10 +3,13 @@ const { Pokemon, Type } = require("../db.js");
 
 
 const createPokemonHandler = async (req, res) => {
+console.log("Request Body:", req.body); 
+
   const { name, image, life, attack, defense, speed, height, weight, types } =
     req.body;
 
   if (!name || !image || !life || !attack || !defense || !types) {
+    console.log("Validation Error: Missing or invalid data");
     return res.status(400).send("Missing or invalid data");
   }
 
@@ -34,6 +37,7 @@ const createPokemonHandler = async (req, res) => {
 
     res.status(200).json(filteredType);
   } catch (error) {
+    console.log("Error:", error);
     if (error.message === "Pokemon with this name already exists") {
       res.status(400).send(error.message);
     } else {
