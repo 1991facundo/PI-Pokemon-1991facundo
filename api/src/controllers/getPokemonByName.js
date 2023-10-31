@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { Op } = require("sequelize");
-const { Pokemon } = require("../db.js");
+const { Pokemon, Type } = require("../db.js");
 const getData = require("../utils/getData");
 
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
@@ -15,6 +15,7 @@ const getPokemonByName = async (name) => {
           [Op.iLike]: `%${lowerCase}%`,
         },
       },
+      include: [Type],
     });
 
     if (localPokemons && localPokemons.length > 0) {

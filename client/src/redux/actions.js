@@ -4,11 +4,9 @@ import {
   FETCH_REQUEST,
   FETCH_SUCCESS,
   FETCH_FAIL,
-  SEARCH,
-  FILTER,
-  SORT,
+  SET_FILTERED_POKEMONS,
+SET_SORTED_POKEMONS,
   SET_PAGE,
-  SET_CURRENT_POKEMON,
 } from "./action-types";
 
 export const fetchRequest = () => ({
@@ -33,13 +31,17 @@ export const searchPokemon = (name) => {
       const response = await axios.get(
         `http://localhost:3001/pokemons/name?name=${name}`
       );
-      dispatch(fetchSuccess(response.data));
+      console.log("Response data:", response.data);
+      dispatch(
+        fetchSuccess(
+          Array.isArray(response.data) ? response.data : [response.data]
+        )
+      );
     } catch (error) {
       dispatch(fetchFail(error.message));
     }
   };
 };
-
 
 export const fetchPokemons = () => {
   return async (dispatch) => {
@@ -47,7 +49,7 @@ export const fetchPokemons = () => {
 
     try {
       const response = await axios.get(`http://localhost:3001/pokemons`);
-      // console.log("Response Data: ", response.data); 
+      // console.log("Response Data: ", response.data);
       dispatch(fetchSuccess(response.data));
     } catch (error) {
       // console.error("Fetch Error: ", error);
@@ -56,21 +58,74 @@ export const fetchPokemons = () => {
   };
 };
 
-export const setCurrentPokemon = (pokemon) => ({
-  type: SET_CURRENT_POKEMON,
-  payload: pokemon,
-});
+
+export const applyTypeFilter = () => {
+  return (dispatch, getState) => {
+    const allPokemons = [...getState().pokemons];
+    const filteredPokemons = getState().typeFilter
+      ? allPokemons.filter((pokemon) =>
+          pokemon.types.includes(getState().typeFilter)
+        )
+      : allPokemons;
+
+    dispatch({ 
+      type: SET_FILTERED_POKEMONS, 
+      payload: filteredPokemons });
+  };
+};
 
 
-export const filterPokemons = (filter) => ({
-  type: FILTER,
-  payload: filter,
-});
+export const applyOriginFilter = () => {
+  return (dispatch, getState) => {
+    const allPokemons = [...getState().pokemons];
+    let filteredPokemons;
 
-export const sortPokemons = (sortCriteria) => ({
-  type: SORT,
-  payload: sortCriteria,
-});
+    if (getState().originFilter === "api") {
+      filteredPokemons = allPokemons.filter(
+        (pokemon) => typeof pokemon.id === "number"
+      );
+    } else if (getState().originFilter === "db") {
+      filteredPokemons = allPokemons.filter(
+        (pokemon) => typeof pokemon.id === "string"
+      );
+    } else {
+      filteredPokemons = allPokemons;
+    }
+
+    dispatch({ type: SET_FILTERED_POKEMONS, payload: filteredPokemons });
+  };
+};
+
+export const applyOrder = () => {
+  return (dispatch, getState) => {
+    const pokemonsToSort = [...getState().filteredPokemons];
+    let sortedPokemons;
+
+    switch (getState().order) {
+      case "name-asc":
+        sortedPokemons = pokemonsToSort.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
+        break;
+      case "name-desc":
+        sortedPokemons = pokemonsToSort.sort((a, b) =>
+          b.name.localeCompare(a.name)
+        );
+        break;
+      case "attack-asc":
+        sortedPokemons = pokemonsToSort.sort((a, b) => a.attack - b.attack);
+        break;
+      case "attack-desc":
+        sortedPokemons = pokemonsToSort.sort((a, b) => b.attack - a.attack);
+        break;
+      default:
+        sortedPokemons = pokemonsToSort;
+        break;
+    }
+
+    dispatch({ type: SET_SORTED_POKEMONS, payload: sortedPokemons });
+  };
+};
 
 export const setPage = (pageNumber) => ({
   type: SET_PAGE,

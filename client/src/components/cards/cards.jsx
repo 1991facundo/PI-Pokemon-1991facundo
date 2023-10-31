@@ -1,19 +1,20 @@
-import { useSelector } from "react-redux";
-import Card from "../Card/Card";
-
+import Card from "../card/card";
 import "./cards.css";
 
-const Cards = () => {
-  const pokemons = useSelector((state) => state.pokemons);
-  console.log("Pokemons: ", pokemons);
+const Cards = ({ pokemons }) => {
+  console.log("Displayed Pokemons: ", pokemons);
 
-  return (
-    <div className="cards-container">
-      {pokemons.map((pokemon, index) => (
-        <Card key={index} pokemon={pokemon} />
-      ))}
-    </div>
-  );
+
+  const renderCards = () => {
+    if (!pokemons || pokemons.length === 0)
+      return <p>No hay Pokémon para mostrar</p>;
+
+    return pokemons.map((pokemon, index) => (
+      <Card key={index} pokemon={pokemon} />
+    ));
+  };
+
+  return <div className="cards-container">{renderCards()}</div>;
 };
 
 export default Cards;

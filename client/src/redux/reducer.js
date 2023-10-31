@@ -3,25 +3,24 @@ import {
   FETCH_SUCCESS,
   FETCH_FAIL,
   SEARCH,
-  FILTER,
-  SORT,
+  SET_FILTERED_POKEMONS,
+  SET_SORTED_POKEMONS,
   SET_PAGE,
-  SET_CURRENT_POKEMON,
 } from "./action-types";
 
 const initialState = {
   pokemons: [],
-  currentPokemon: null,
+  filteredPokemons: [],
   loading: false,
   error: null,
   searchTerm: "",
-  filter: {},
-  sortCriteria: {},
   currentPage: 1,
 };
 
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    /*TRAER LA INFO PARA RENDERIZARLA*/
     case FETCH_REQUEST:
       return {
         ...state,
@@ -40,31 +39,27 @@ const reducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-
-
     case SEARCH:
       return {
         ...state,
         searchTerm: action.payload,
       };
 
-    case SET_CURRENT_POKEMON:
+    /* FILTRO Y ORDENAMIENTO */
+
+    case SET_FILTERED_POKEMONS:
       return {
         ...state,
-        currentPokemon: action.payload,
+        filteredPokemons: action.payload,
       };
 
-    case FILTER:
+    case SET_SORTED_POKEMONS:
       return {
         ...state,
-        filter: action.payload,
+        sortedPokemons: action.payload,
       };
 
-    case SORT:
-      return {
-        ...state,
-        sortCriteria: action.payload,
-      };
+    /* PAGINADO */
 
     case SET_PAGE:
       return {
