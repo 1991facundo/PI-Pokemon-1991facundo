@@ -1,0 +1,21 @@
+.detail-card {
+  border: 2px solid #0792c4;
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  margin: 0 auto;
+  box-shadow: 0 10px 20px rgb(0, 200, 90);
+  gap: 20px;  
+  border-radius: 85px 0px; 
+  max-width: 900px;
+  background: radial-gradient( #5b5a5a,#2419c1bd, #5b5a5a);
+  margin-top: 50px;
+  
+}
+
+.detail-card img {
+  width: 400px; 
+
+}

@@ -22,7 +22,7 @@ const getData = async (data) => {
     id: data.id,
     name: data.name,
     image: image,
-    hitPoints: hpPoints,
+    healthPoints: hpPoints,
     attack: attackPoints,
     defense: defensePoints,
     speed: speedPoints,

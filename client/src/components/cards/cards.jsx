@@ -13,6 +13,7 @@ const Cards = ({ pokemons }) => {
       <Card key={index} pokemon={pokemon} />
     ));
   };
+  
 
   return <div className="cards-container">{renderCards()}</div>;
 };

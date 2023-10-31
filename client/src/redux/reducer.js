@@ -2,21 +2,21 @@ import {
   FETCH_REQUEST,
   FETCH_SUCCESS,
   FETCH_FAIL,
-  SEARCH,
-  SET_FILTERED_POKEMONS,
-  SET_SORTED_POKEMONS,
+  FILTER_BY_TYPE,
+  FILTER_BY_ORIGIN,
+  RESET_FILTERED_POKEMONS,
   SET_PAGE,
 } from "./action-types";
 
 const initialState = {
   pokemons: [],
   filteredPokemons: [],
+  isFiltered: false,
   loading: false,
   error: null,
   searchTerm: "",
   currentPage: 1,
 };
-
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -39,24 +39,44 @@ const reducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-    case SEARCH:
+    /*FILTRADO*/
+    case FILTER_BY_TYPE:
       return {
         ...state,
-        searchTerm: action.payload,
+        isFiltered: true,
+        filteredPokemons: state.pokemons.filter(
+          (pokemon) =>
+            pokemon.types &&
+            pokemon.types.some((type) =>
+              typeof type === "string"
+                ? type === action.payload
+                : type.name === action.payload
+            )
+        ),
       };
 
-    /* FILTRO Y ORDENAMIENTO */
-
-    case SET_FILTERED_POKEMONS:
+    case FILTER_BY_ORIGIN:
+      let filteredByOrigin;
+      if (action.payload === "API") {
+        filteredByOrigin = state.pokemons.filter(
+          (pokemon) => typeof pokemon.id === "number"
+        );
+      } else if (action.payload === "DB") {
+        filteredByOrigin = state.pokemons.filter(
+          (pokemon) => typeof pokemon.id === "string"
+        );
+      }
       return {
         ...state,
-        filteredPokemons: action.payload,
+        isFiltered: true,
+        filteredPokemons: filteredByOrigin,
       };
 
-    case SET_SORTED_POKEMONS:
+    case RESET_FILTERED_POKEMONS:
       return {
         ...state,
-        sortedPokemons: action.payload,
+        isFiltered: false,
+        filteredPokemons: [],
       };
 
     /* PAGINADO */

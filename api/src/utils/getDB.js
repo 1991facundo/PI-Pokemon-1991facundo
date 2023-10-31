@@ -4,7 +4,7 @@ const getDB = (data) => {
     id: poke.id,
     name: poke.name,
     image: poke.image,
-    hitPoints: poke.life,
+    healthPoints: poke.life,
     attack: poke.attack,
     defense: poke.defense,
     speed: poke.speed,

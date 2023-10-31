@@ -1,76 +1,77 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import SearchBar from "../searchBar/searchBar";
+
+import { useDispatch } from "react-redux";
 import {
-  applyTypeFilter,
-  applyOriginFilter,
-  applyOrder,
+  filterByType,
+  filterByOrigin,
+  resetFilteredPokemons,
 } from "../../redux/actions";
+
+import { useSelector } from "react-redux";
 
 import "./navBar.css";
 
 const NavBar = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const [selectedType, setSelectedType] = useState("");
-    const [selectedOrigin, setSelectedOrigin] = useState("");
-    const [selectedOrder, setSelectedOrder] = useState("");
+  const handleTypeFilter = (event) => {
+    const type = event.target.value;
 
-    const handleTypeChange = (e) => setSelectedType(e.target.value);
-    const handleOriginChange = (e) => setSelectedOrigin(e.target.value);
-    const handleOrderChange = (e) => setSelectedOrder(e.target.value);
+    if (type === "") {
+      dispatch(resetFilteredPokemons());
+    } else {
+      console.log("Filtrando por tipo:", type);
+      dispatch(filterByType(type));
+    }
+  };
 
-    const applyFilters = () => {
-        if (selectedType) dispatch(applyTypeFilter(selectedType));
-        if (selectedOrigin) dispatch(applyOriginFilter(selectedOrigin));
-        if (selectedOrder) dispatch(applyOrder(selectedOrder));
-    };
+  const handleOriginFilter = (event) => {
+    const origin = event.target.value;
 
-    return (
-        <div className="navbar-container">
-            <select onChange={handleTypeChange}>
-                <option value="">Selecciona un tipo</option>
-          <option value="fire">Fire</option>
-          <option value="water">Water</option>
-          <option value="grass">Grass</option>
-          <option value="normal">Normal</option>
-          <option value="fighting">Fighting</option>
-          <option value="poison">Poison</option>
-          <option value="ground">Ground</option>
-          <option value="rock">Rock</option>
-          <option value="bug">Bug</option>
-          <option value="ghost">Ghost</option>
-          <option value="steel">Steel</option>
-          <option value="electric">Electric</option>
-          <option value="psychic">Psychic</option>
-          <option value="ice">Ice</option>
-          <option value="dragon">Dragon</option>
-          <option value="dark">Dark</option>
-          <option value="fairy">Fairy</option>
-          <option value="unknown">Unknown</option>
-          <option value="flying">Flying</option>
-          <option value="shadow">Shadow</option>
-            </select>
+    if (origin === "") {
+      console.log("filtrado por todos");
+      dispatch(resetFilteredPokemons());
+    } else {
+      console.log("Filtrando por:", origin);
+      dispatch(filterByOrigin(origin));
+    }
+  };
 
-            <select onChange={handleOriginChange}>
-                <option value="">Selecciona el origen</option>
-                <option value="api">API</option>
-                <option value="db">Base de datos</option>
-            </select>
+  return (
+    <div className="navbar-container">
+      <SearchBar />
 
-            <select onChange={handleOrderChange}>
-                <option value="">Ordenar por</option>
-                <option value="name-asc">Nombre (A-Z)</option>
-                <option value="name-desc">Nombre (Z-A)</option>
-                <option value="attack-asc">Ataque (Ascendente)</option>
-                <option value="attack-desc">Ataque (Descendente)</option>
-            </select>
+      <select onChange={handleTypeFilter}>
+        <option value="">Select Type</option>
+        <option value="fire">Fire</option>
+        <option value="water">Water</option>
+        <option value="grass">Grass</option>
+        <option value="normal">Normal</option>
+        <option value="fighting">Fighting</option>
+        <option value="poison">Poison</option>
+        <option value="ground">Ground</option>
+        <option value="rock">Rock</option>
+        <option value="bug">Bug</option>
+        <option value="ghost">Ghost</option>
+        <option value="steel">Steel</option>
+        <option value="electric">Electric</option>
+        <option value="psychic">Psychic</option>
+        <option value="ice">Ice</option>
+        <option value="dragon">Dragon</option>
+        <option value="dark">Dark</option>
+        <option value="fairy">Fairy</option>
+        <option value="unknown">Unknown</option>
+        <option value="flying">Flying</option>
+        <option value="shadow">Shadow</option>
+      </select>
 
-            <button onClick={applyFilters}>Aplicar</button>
-            
-        </div>
-    );
-}
+      <select onChange={handleOriginFilter}>
+        <option value="">Select Origin</option>
+        <option value="API">API</option>
+        <option value="DB">Database</option>
+      </select>
+    </div>
+  );
+};
 
 export default NavBar;
-
-

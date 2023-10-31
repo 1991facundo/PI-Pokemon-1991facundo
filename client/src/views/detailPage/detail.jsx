@@ -16,6 +16,7 @@ const DetailPage = () => {
         }
         const data = await response.json();
         setCurrentPokemon(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error fetching pokemon:", error);
       }
@@ -25,17 +26,17 @@ const DetailPage = () => {
 
   return (
     currentPokemon && (
-      <div>
+      <div className="detail-card">
         <h1>{currentPokemon.name}</h1>
         <img src={currentPokemon.image} alt={currentPokemon.name} />
-        <div>ID: {currentPokemon.id}</div>
-        <div>Vida: {currentPokemon.hitPoints}</div>
-        <div>Ataque: {currentPokemon.attack}</div>
-        <div>Defensa: {currentPokemon.defense}</div>
-        <div>Velocidad: {currentPokemon.speed}</div>
-        <div>Altura: {currentPokemon.height}</div>
-        <div>Peso: {currentPokemon.weight}</div>
-        <div>Tipo: {currentPokemon.types.join(", ")}</div>
+        {/* <div>ID: {currentPokemon.id}</div> */}
+        <div>Life: {currentPokemon.life}</div>
+        <div>Attack: {currentPokemon.attack}</div>
+        <div>Defense: {currentPokemon.defense}</div>
+        <div>Speed: {currentPokemon.speed}</div>
+        <div>Height: {currentPokemon.height}</div>
+        <div>Weight: {currentPokemon.weight}</div>
+        <div>Type: {currentPokemon.types.join(", ")}</div>
       </div>
     )
   );
