@@ -2,7 +2,7 @@ import Card from "../card/card";
 import "./cards.css";
 
 const Cards = ({ pokemons }) => {
-  console.log("Displayed Pokemons: ", pokemons);
+  // console.log("Displayed Pokemons: ", pokemons);
 
 
   const renderCards = () => {

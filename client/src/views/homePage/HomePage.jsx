@@ -1,11 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPokemons } from "../../redux/actions";
 import NavBar from "../../components/navBar/navBar";
 import Cards from "../../components/cards/cards";
+import Pagination from "../../components/pagination/pagination";
 
 const HomePage = () => {
   const dispatch = useDispatch();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const elementsPerPage = 12 ;
 
   const isFiltered = useSelector((state) => state.isFiltered);
   const allPokemons = useSelector((state) => state.pokemons || []);
@@ -42,6 +46,21 @@ const HomePage = () => {
 
   // console.log("Sorted by direction pokemons list:", sortedPokemons);
 
+  const totalPages = Math.ceil(sortedPokemons.length / elementsPerPage);
+
+  const indexOfLastPokemon = currentPage * elementsPerPage;
+  const indexOfFirstPokemon = indexOfLastPokemon - elementsPerPage;
+  const currentPokemons = sortedPokemons.slice(
+    indexOfFirstPokemon,
+    indexOfLastPokemon
+  );
+  console.log("Pokémons actuales para mostrar:", currentPokemons);
+
+  const handlePageChange = (pageNumber) => {
+    console.log("Cambiando a página:", pageNumber);
+    setCurrentPage(pageNumber);
+  };
+
   useEffect(() => {
     dispatch(fetchPokemons());
   }, [dispatch]);
@@ -50,7 +69,12 @@ const HomePage = () => {
     <div>
       <h1>ESTE ES EL HOMEPAGE</h1>
       <NavBar />
-      <Cards pokemons={sortedPokemons} />
+      <Cards pokemons={currentPokemons} />
+      <Pagination
+        page={handlePageChange}
+        total={totalPages}
+        current={currentPage}
+      />
     </div>
   );
 };
