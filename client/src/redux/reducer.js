@@ -5,6 +5,8 @@ import {
   FILTER_BY_TYPE,
   FILTER_BY_ORIGIN,
   RESET_FILTERED_POKEMONS,
+  SET_SORTING_CRITERIA,
+  SET_SORTING_DIRECTION,
   SET_PAGE,
 } from "./action-types";
 
@@ -15,6 +17,8 @@ const initialState = {
   loading: false,
   error: null,
   searchTerm: "",
+  sortingCriteria: 'name',
+  sortingDirection: 'asc',
   currentPage: 1,
 };
 
@@ -77,6 +81,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         isFiltered: false,
         filteredPokemons: [],
+      };
+
+    /* ORDENAMIENTO */
+
+    case SET_SORTING_CRITERIA:
+      return {
+        ...state,
+        sortingCriteria: action.payload,
+      };
+
+    case SET_SORTING_DIRECTION:
+      return {
+        ...state,
+        sortingDirection: action.payload,
       };
 
     /* PAGINADO */

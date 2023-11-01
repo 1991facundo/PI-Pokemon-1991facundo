@@ -13,6 +13,21 @@ const HomePage = () => {
 
   const pokemonsToShow = isFiltered ? filteredPokemons : allPokemons;
 
+  const sortingCriterion = useSelector((state) => state.sortingCriterion);
+  const sortingDirection = useSelector((state) => state.sortingDirection);
+
+  let sortedPokemons = [...pokemonsToShow];
+
+  if (sortingCriterion === "name") {
+    sortedPokemons.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sortingCriterion === "attack") {
+    sortedPokemons.sort((a, b) => a.attack - b.attack);
+  }
+
+  if (sortingDirection === "desc") {
+    sortedPokemons.reverse(); 
+  }
+
   useEffect(() => {
     dispatch(fetchPokemons());
   }, [dispatch]);
@@ -21,7 +36,7 @@ const HomePage = () => {
     <div>
       <h1>ESTE ES EL HOMEPAGE</h1>
       <NavBar />
-      <Cards pokemons={pokemonsToShow} />
+      <Cards pokemons={sortedPokemons} />
     </div>
   );
 };

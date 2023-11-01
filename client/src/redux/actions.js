@@ -7,6 +7,8 @@ import {
   FILTER_BY_TYPE,
   FILTER_BY_ORIGIN,
   RESET_FILTERED_POKEMONS,
+  SET_SORTING_CRITERIA,
+SET_SORTING_DIRECTION,
   SET_PAGE,
 } from "./action-types";
 
@@ -78,6 +80,17 @@ export const filterByType = (pokemonType) => ({
   payload: pokemonType,
 });
 
+/*----------ORDER POKEMONS----------*/
+
+export const setSortingCriteria = (criteria) => ({
+  type: SET_SORTING_CRITERIA,
+  payload: criteria,
+});
+
+export const setSortingDirection = (direction) => ({
+  type: SET_SORTING_DIRECTION,
+  payload: direction,
+});
 
 export const setPage = (pageNumber) => ({
   type: SET_PAGE,

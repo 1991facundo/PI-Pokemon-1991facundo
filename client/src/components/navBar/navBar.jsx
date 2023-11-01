@@ -5,9 +5,9 @@ import {
   filterByType,
   filterByOrigin,
   resetFilteredPokemons,
+  setSortingCriteria,
+  setSortingDirection,
 } from "../../redux/actions";
-
-import { useSelector } from "react-redux";
 
 import "./navBar.css";
 
@@ -37,12 +37,25 @@ const NavBar = () => {
     }
   };
 
+
+  const handleSortingCriteria = (event) => {
+    const criteria = event.target.value;
+    dispatch(setSortingCriteria(criteria));
+    
+  };
+
+  const handleSortingDirection = (event) => {
+    const direction = event.target.value;
+    dispatch(setSortingDirection(direction));
+    
+  };
+
   return (
     <div className="navbar-container">
       <SearchBar />
-
+      {/* -----------FILTERS------------ */}
       <select onChange={handleTypeFilter}>
-        <option value="">Select Type</option>
+        <option value="">Show All</option>
         <option value="fire">Fire</option>
         <option value="water">Water</option>
         <option value="grass">Grass</option>
@@ -64,12 +77,25 @@ const NavBar = () => {
         <option value="flying">Flying</option>
         <option value="shadow">Shadow</option>
       </select>
-
       <select onChange={handleOriginFilter}>
-        <option value="">Select Origin</option>
+        <option value="">Show All</option>
         <option value="API">API</option>
         <option value="DB">Database</option>
       </select>
+
+      {/* -----------ORDER------------ */}
+      <div className="sorting-container">
+        <select onChange={handleSortingCriteria}>
+          <option value="">Sort By</option>
+          <option value="name">Nombre</option>
+          <option value="attack">Ataque</option>
+        </select>
+
+        <select onChange={handleSortingDirection}>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </div>
     </div>
   );
 };

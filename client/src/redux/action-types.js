@@ -13,4 +13,7 @@ export const RESET_FILTERED_POKEMONS = "RESET_FILTERED_POKEMONS";
 
 /*---------------ORDER------------------*/
 
+export const SET_SORTING_CRITERIA = "SET_SORTING_CRITERIA"
+export const SET_SORTING_DIRECTION = "SET_SORTING_DIRECTION";
+
 export const SET_PAGE = 'SET_PAGE'
