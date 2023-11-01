@@ -20,7 +20,7 @@ const NavBar = () => {
     if (type === "") {
       dispatch(resetFilteredPokemons());
     } else {
-      console.log("Filtrando por tipo:", type);
+      // console.log("Filtrando por tipo:", type);
       dispatch(filterByType(type));
     }
   };
@@ -29,10 +29,10 @@ const NavBar = () => {
     const origin = event.target.value;
 
     if (origin === "") {
-      console.log("filtrado por todos");
+      // console.log("filtrado por todos");
       dispatch(resetFilteredPokemons());
     } else {
-      console.log("Filtrando por:", origin);
+      // console.log("Filtrando por:", origin);
       dispatch(filterByOrigin(origin));
     }
   };
@@ -40,12 +40,14 @@ const NavBar = () => {
 
   const handleSortingCriteria = (event) => {
     const criteria = event.target.value;
+    // console.log("Selected sorting criteria:", criteria);
     dispatch(setSortingCriteria(criteria));
     
   };
 
   const handleSortingDirection = (event) => {
     const direction = event.target.value;
+    // console.log("Selected sorting direction:", direction);
     dispatch(setSortingDirection(direction));
     
   };
@@ -54,6 +56,7 @@ const NavBar = () => {
     <div className="navbar-container">
       <SearchBar />
       {/* -----------FILTERS------------ */}
+      
       <select onChange={handleTypeFilter}>
         <option value="">Show All</option>
         <option value="fire">Fire</option>
@@ -84,14 +87,16 @@ const NavBar = () => {
       </select>
 
       {/* -----------ORDER------------ */}
+
       <div className="sorting-container">
         <select onChange={handleSortingCriteria}>
           <option value="">Sort By</option>
-          <option value="name">Nombre</option>
-          <option value="attack">Ataque</option>
+          <option value="name">Name</option>
+          <option value="attack">Attack</option>
         </select>
 
         <select onChange={handleSortingDirection}>
+          <option value="">Direction</option>
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
         </select>

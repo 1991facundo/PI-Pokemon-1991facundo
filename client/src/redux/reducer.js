@@ -17,7 +17,7 @@ const initialState = {
   loading: false,
   error: null,
   searchTerm: "",
-  sortingCriteria: 'name',
+  sortingCriteria: 'null',
   sortingDirection: 'asc',
   currentPage: 1,
 };
@@ -86,12 +86,14 @@ const reducer = (state = initialState, action) => {
     /* ORDENAMIENTO */
 
     case SET_SORTING_CRITERIA:
+      // console.log("Reducer, setting criteria to:", action.payload);
       return {
         ...state,
         sortingCriteria: action.payload,
       };
 
     case SET_SORTING_DIRECTION:
+      // console.log("Reducer, setting direction to:", action.payload);
       return {
         ...state,
         sortingDirection: action.payload,

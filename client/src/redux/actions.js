@@ -8,7 +8,7 @@ import {
   FILTER_BY_ORIGIN,
   RESET_FILTERED_POKEMONS,
   SET_SORTING_CRITERIA,
-SET_SORTING_DIRECTION,
+  SET_SORTING_DIRECTION,
   SET_PAGE,
 } from "./action-types";
 
@@ -51,7 +51,7 @@ export const searchPokemon = (name) => {
       const response = await axios.get(
         `http://localhost:3001/pokemons/name?name=${name}`
       );
-      console.log("Response data:", response.data);
+      // console.log("Response data:", response.data);
       dispatch(
         fetchSuccess(
           Array.isArray(response.data) ? response.data : [response.data]
@@ -64,7 +64,6 @@ export const searchPokemon = (name) => {
 };
 
 /*----------FILTER POKEMONS----------*/
-
 
 export const filterByOrigin = (origin) => ({
   type: FILTER_BY_ORIGIN,

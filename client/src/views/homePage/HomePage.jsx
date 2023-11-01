@@ -11,22 +11,36 @@ const HomePage = () => {
   const allPokemons = useSelector((state) => state.pokemons || []);
   const filteredPokemons = useSelector((state) => state.filteredPokemons);
 
-  const pokemonsToShow = isFiltered ? filteredPokemons : allPokemons;
-
-  const sortingCriterion = useSelector((state) => state.sortingCriterion);
+  const sortingCriteria = useSelector((state) => state.sortingCriteria);
   const sortingDirection = useSelector((state) => state.sortingDirection);
+
+  // console.log("Sorting criteria from state:", sortingCriteria);
+  // console.log("Sorting direction from state:", sortingDirection);
+
+  const pokemonsToShow = isFiltered ? filteredPokemons : allPokemons;
 
   let sortedPokemons = [...pokemonsToShow];
 
-  if (sortingCriterion === "name") {
-    sortedPokemons.sort((a, b) => a.name.localeCompare(b.name));
-  } else if (sortingCriterion === "attack") {
-    sortedPokemons.sort((a, b) => a.attack - b.attack);
-  }
+  // console.log("Initial pokemons list:", sortedPokemons);
+
+
+   if (sortingCriteria === "name") {
+     // console.log("Sorting by name");
+     sortedPokemons.sort((a, b) => a.name.localeCompare(b.name));
+   } else if (sortingCriteria === "attack") {
+     // console.log("Sorting by attack");
+     sortedPokemons.sort((a, b) => a.attack - b.attack);
+   }
+
+
+  // console.log("Sorted by criteria pokemons list:", sortedPokemons);
 
   if (sortingDirection === "desc") {
-    sortedPokemons.reverse(); 
+    // console.log("Reversing order for descending");
+    sortedPokemons.reverse();
   }
+
+  // console.log("Sorted by direction pokemons list:", sortedPokemons);
 
   useEffect(() => {
     dispatch(fetchPokemons());
