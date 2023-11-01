@@ -57,7 +57,7 @@ const HomePage = () => {
   console.log("Pokémons actuales para mostrar:", currentPokemons);
 
   const handlePageChange = (pageNumber) => {
-    console.log("Cambiando a página:", pageNumber);
+    // console.log("Cambiando a página:", pageNumber);
     setCurrentPage(pageNumber);
   };
 

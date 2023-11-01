@@ -1,5 +1,3 @@
-
-
 const Pagination = ({ page, total, current }) => {
   const pageNumbers = [];
   for (let i = 1; i <= total; i++) {
