@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPokemons } from "../../redux/actions";
+import { fetchPokemons, setPage } from "../../redux/actions";
 import NavBar from "../../components/navBar/navBar";
 import Cards from "../../components/cards/cards";
 import Pagination from "../../components/pagination/pagination";
@@ -8,7 +8,8 @@ import Pagination from "../../components/pagination/pagination";
 const HomePage = () => {
   const dispatch = useDispatch();
 
-  const [currentPage, setCurrentPage] = useState(1);
+  
+  const currentPage = useSelector((state) => state.currentPage);
   const elementsPerPage = 12 ;
 
   const isFiltered = useSelector((state) => state.isFiltered);
@@ -23,9 +24,9 @@ const HomePage = () => {
 
   const pokemonsToShow = isFiltered ? filteredPokemons : allPokemons;
 
-  let sortedPokemons = [...pokemonsToShow];
+  const sortedPokemons = [...pokemonsToShow];
 
-  // console.log("Initial pokemons list:", sortedPokemons);
+  console.log("Initial pokemons list:", sortedPokemons);
 
 
    if (sortingCriteria === "name") {
@@ -48,18 +49,18 @@ const HomePage = () => {
 
   const totalPages = Math.ceil(sortedPokemons.length / elementsPerPage);
 
-  const indexOfLastPokemon = currentPage * elementsPerPage;
-  const indexOfFirstPokemon = indexOfLastPokemon - elementsPerPage;
+  const lastPokemonIndex = currentPage * elementsPerPage;
+  const firstPokemonIndex = lastPokemonIndex - elementsPerPage;
   const currentPokemons = sortedPokemons.slice(
-    indexOfFirstPokemon,
-    indexOfLastPokemon
+    firstPokemonIndex,
+    lastPokemonIndex
   );
-  console.log("Pokémons actuales para mostrar:", currentPokemons);
+  console.log("Pokemon to show:", currentPokemons);
 
-  const handlePageChange = (pageNumber) => {
-    // console.log("Cambiando a página:", pageNumber);
-    setCurrentPage(pageNumber);
-  };
+ const handlePageChange = (pageNumber) => {
+   console.log("page change:", pageNumber);
+   dispatch(setPage(pageNumber));
+ };
 
   useEffect(() => {
     dispatch(fetchPokemons());

@@ -57,6 +57,7 @@ export const searchPokemon = (name) => {
           Array.isArray(response.data) ? response.data : [response.data]
         )
       );
+      dispatch(setPage(1));
     } catch (error) {
       dispatch(fetchFail(error.message));
     }

@@ -9,9 +9,7 @@ const getPokemonById = async (id) => {
 
   if (isNaN(id)) {
     localPokemon = await Pokemon.findOne({ where: { id: id }, include: Type });
-  } else {
-    localPokemon = await Pokemon.findOne({ where: { integerId: id } });
-  }
+  } 
 
   if (localPokemon) {
     const localPokemonJSON = localPokemon.toJSON(); 

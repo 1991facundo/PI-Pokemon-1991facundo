@@ -27,6 +27,7 @@ const DetailPage = () => {
   return (
     currentPokemon && (
       <div className="detail-card">
+        {/* <button className="close-button" onClick={handleClose}>X</button> */}
         <h1>{currentPokemon.name}</h1>
         <img src={currentPokemon.image} alt={currentPokemon.name} />
         {/* <div>ID: {currentPokemon.id}</div> */}
@@ -36,7 +37,7 @@ const DetailPage = () => {
         <div>Speed: {currentPokemon.speed}</div>
         <div>Height: {currentPokemon.height}</div>
         <div>Weight: {currentPokemon.weight}</div>
-        <div>Type: {currentPokemon.types.join(", ")}</div>
+        <div>Type: {currentPokemon.types.join(" / ")}</div>
       </div>
     )
   );

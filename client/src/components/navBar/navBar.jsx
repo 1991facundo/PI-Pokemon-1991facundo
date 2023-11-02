@@ -7,7 +7,9 @@ import {
   resetFilteredPokemons,
   setSortingCriteria,
   setSortingDirection,
+  fetchPokemons
 } from "../../redux/actions";
+
 
 import "./navBar.css";
 
@@ -52,13 +54,21 @@ const NavBar = () => {
     
   };
 
+  const handleShowAllClick = () => {
+    dispatch(resetFilteredPokemons());
+    dispatch(fetchPokemons()); 
+  };
+
   return (
     <div className="navbar-container">
       <SearchBar />
+
+      <button onClick={handleShowAllClick}>Show All</button>
+
       {/* -----------FILTERS------------ */}
-      
+
       <select onChange={handleTypeFilter}>
-        <option value="">Show All</option>
+        <option value="">Type</option>
         <option value="fire">Fire</option>
         <option value="water">Water</option>
         <option value="grass">Grass</option>
@@ -81,7 +91,7 @@ const NavBar = () => {
         <option value="shadow">Shadow</option>
       </select>
       <select onChange={handleOriginFilter}>
-        <option value="">Show All</option>
+        <option value="">Origin</option>
         <option value="API">API</option>
         <option value="DB">Database</option>
       </select>

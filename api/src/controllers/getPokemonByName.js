@@ -6,7 +6,14 @@ const getData = require("../utils/getData");
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
 
 const getPokemonByName = async (name) => {
+  if (name.length === 0) {
+    throw Error("Error name not defined");
+  }
+
   try {
+
+    
+
     const lowerCase = name.toLowerCase();
 
     const localPokemons = await Pokemon.findAll({

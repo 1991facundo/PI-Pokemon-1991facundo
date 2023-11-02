@@ -14,18 +14,29 @@ const SearchBar = () => {
     }
 
     const handleSearch = () => {
+      const errorHandler = inputValue.trim();
+      // console.log(errorHandler)
+      if(!errorHandler.length) {
+        // console.log("hola")
+        return
+      }
         dispatch(searchPokemon(inputValue))
     }
 
 
     return (
-        <div className='searchbar-container'>
-
-            <input type="search" placeholder='Search Pokemon by name' value={inputValue} onChange={handleChange} />
-            <button onClick={handleSearch}>Search</button>
-
-        </div>
-    )
+      <div className="searchbar-container">
+        <input
+          type="search"
+          placeholder="Search Pokemon by name"
+          value={inputValue}
+          onChange={handleChange}
+        />
+        <button onClick={handleSearch}>
+          Search
+        </button>
+      </div>
+    );
 
 
 }
