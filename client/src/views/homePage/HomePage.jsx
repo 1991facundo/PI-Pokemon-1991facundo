@@ -18,24 +18,21 @@ const HomePage = () => {
   const sortingCriteria = useSelector((state) => state.sortingCriteria);
   const sortingDirection = useSelector((state) => state.sortingDirection);
 
-  // console.log("Sorting criteria from state:", sortingCriteria);
-  // console.log("Sorting direction from state:", sortingDirection);
-
   const pokemonsToShow = isFiltered ? filteredPokemons : allPokemons;
 
   const sortedPokemons = [...pokemonsToShow];
 
-  console.log("Initial pokemons list:", sortedPokemons);
+  // console.log("Initial pokemons list:", sortedPokemons);
 
 
 
 
   if (sortingCriteria && sortingDirection) {
     if (sortingCriteria === "name") {
-      // console.log("Sorting by name");
+     
       sortedPokemons.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sortingCriteria === "attack") {
-      // console.log("Sorting by attack");
+    
       sortedPokemons.sort((a, b) => a.attack - b.attack);
     }
 
@@ -43,14 +40,6 @@ const HomePage = () => {
       sortedPokemons.reverse();
     }
   }
-
-  // console.log("Sorted by criteria pokemons list:", sortedPokemons);
-
-  // console.log("Sorted by direction pokemons list:", sortedPokemons);
-
-
-
-
 
   const totalPages = Math.ceil(sortedPokemons.length / elementsPerPage);
 
@@ -60,10 +49,10 @@ const HomePage = () => {
     firstPokemonIndex,
     lastPokemonIndex
   );
-  console.log("Pokemon to show:", currentPokemons);
+  // console.log("Pokemon to show:", currentPokemons);
 
   const handlePageChange = (pageNumber) => {
-    //  console.log("page change:", pageNumber);
+   
     dispatch(setPage(pageNumber));
   };
 

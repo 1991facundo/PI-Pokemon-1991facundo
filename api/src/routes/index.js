@@ -7,14 +7,14 @@ const getTypeHandler = require("../handlers/getTypeHandler");
 
 const router = Router();
 
-router.get("/pokemons", getPokemonsHandler);
-
-router.post("/pokemons", createPokemonHandler);
-
 router.get("/pokemons/type", getTypeHandler);
 
 router.get("/pokemons/name", getPokemonByNameHandler);
 
-router.get("/pokemons/:id", getPokemonByIdHandler); 
+router.get("/pokemons", getPokemonsHandler);
+
+router.post("/pokemons", createPokemonHandler);
+
+router.get("/pokemons/:id", getPokemonByIdHandler);
 
 module.exports = router;

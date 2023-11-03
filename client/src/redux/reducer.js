@@ -9,7 +9,10 @@ import {
   SET_SORTING_CRITERIA,
   SET_SORTING_DIRECTION,
   SET_PAGE,
+  CREATE_POKEMON,
 } from "./action-types";
+
+/* INITIAL STATES */
 
 const initialState = {
   pokemons: [],
@@ -25,8 +28,10 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
+
   switch (action.type) {
-    /*TRAER LA INFO PARA RENDERIZARLA*/
+    /*POKEMON INFO*/
+
     case FETCH_REQUEST:
       return {
         ...state,
@@ -45,7 +50,7 @@ const reducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-    /*FILTRADO*/
+    /*FILTER*/
 
     case SET_TYPES:
       return {
@@ -92,7 +97,7 @@ const reducer = (state = initialState, action) => {
         filteredPokemons: [],
       };
 
-    /* ORDENAMIENTO */
+    /* SORTING */
 
     case SET_SORTING_CRITERIA:
       // console.log("Reducer, setting criteria to:", action.payload);
@@ -108,12 +113,20 @@ const reducer = (state = initialState, action) => {
         sortingDirection: action.payload,
       };
 
-    /* PAGINADO */
+    /* PAGINATED */
 
     case SET_PAGE:
       return {
         ...state,
         currentPage: action.payload,
+      };
+
+    /* FORM */
+
+    case CREATE_POKEMON:
+      return {
+        ...state,
+        pokemons: [...state.pokemons, action.payload],
       };
 
     default:

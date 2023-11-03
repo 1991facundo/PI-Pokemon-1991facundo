@@ -14,6 +14,7 @@ import "./App.css"
 import LandingPage from "../src/views/landingPage/LandingPage";
 import HomePage from '../src/views/homePage/HomePage'
 import DetailPage from "./views/detailPage/detail";
+import FormPage from "./views/formPage/formPage";
 
 function App() {
 
@@ -22,7 +23,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/pokemon/:id" element={<DetailPage/>} />
+        <Route path="/create" element={<FormPage />} />
+        <Route path="/pokemon/:id" element={<DetailPage />} />
       </Routes>
     </div>
   );

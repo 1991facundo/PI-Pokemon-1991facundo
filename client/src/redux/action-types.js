@@ -20,3 +20,7 @@ export const SET_SORTING_DIRECTION = "SET_SORTING_DIRECTION";
 
 /*---------------PAGINATED------------------*/
 export const SET_PAGE = 'SET_PAGE'
+
+/*-----------------FORM--------------------*/
+
+export const CREATE_POKEMON = "CREATE_POKEMON";

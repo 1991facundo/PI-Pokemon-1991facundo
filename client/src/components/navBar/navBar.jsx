@@ -1,6 +1,7 @@
 import SearchBar from "../searchBar/searchBar";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   filterByType,
   filterByOrigin,
@@ -109,6 +110,11 @@ const NavBar = () => {
           <option value="desc">Descending</option>
         </select>
       </div>
+
+      <Link to={`/create`}>
+        {" "}
+        <button>Create Pokemon</button>{" "}
+      </Link>
     </div>
   );
 };

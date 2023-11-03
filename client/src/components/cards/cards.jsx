@@ -2,8 +2,6 @@ import Card from "../card/card";
 import "./cards.css";
 
 const Cards = ({ pokemons }) => {
-  // console.log("Displayed Pokemons: ", pokemons);
-
 
   const renderCards = () => {
     if (!pokemons || pokemons.length === 0)

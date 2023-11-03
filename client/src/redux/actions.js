@@ -11,6 +11,7 @@ import {
   SET_SORTING_CRITERIA,
   SET_SORTING_DIRECTION,
   SET_PAGE,
+  CREATE_POKEMON,
 } from "./action-types";
 
 /*----------FETCH POKEMONS HOME PAGE----------*/
@@ -116,3 +117,27 @@ export const setPage = (pageNumber) => ({
   type: SET_PAGE,
   payload: pageNumber,
 });
+
+
+/*----------FORM----------*/
+
+export const createPokemon = (pokemonData) => async (dispatch) => {
+  try {
+    const response = await fetch("http://localhost:3001/pokemons", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pokemonData),
+    });
+
+    if (!response.ok) {
+      throw Error("Error creating Pokemon");
+    }
+
+    const data = await response.json();
+    dispatch({ type: CREATE_POKEMON, payload: data });
+  } catch (error) {
+    console.error("Error creating Pokemon", error);
+  }
+};
