@@ -4,6 +4,7 @@ import {
   FETCH_REQUEST,
   FETCH_SUCCESS,
   FETCH_FAIL,
+  SET_TYPES,
   FILTER_BY_TYPE,
   FILTER_BY_ORIGIN,
   RESET_FILTERED_POKEMONS,
@@ -71,13 +72,30 @@ export const filterByOrigin = (origin) => ({
   payload: origin,
 });
 
-export const resetFilteredPokemons = () => ({
-  type: RESET_FILTERED_POKEMONS,
+export const setTypes = (types) => ({
+  type: SET_TYPES,
+  payload: types,
 });
+
+export const fetchTypes = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/pokemons/type`);
+      const types = response.data.map((typeObj) => typeObj.name);
+      dispatch(setTypes(types));
+    } catch (error) {
+      console.error("Error fetching types:", error);
+    }
+  };
+};
 
 export const filterByType = (pokemonType) => ({
   type: FILTER_BY_TYPE,
   payload: pokemonType,
+});
+
+export const resetFilteredPokemons = () => ({
+  type: RESET_FILTERED_POKEMONS,
 });
 
 /*----------ORDER POKEMONS----------*/
@@ -91,6 +109,8 @@ export const setSortingDirection = (direction) => ({
   type: SET_SORTING_DIRECTION,
   payload: direction,
 });
+
+/*----------PAGINATED----------*/
 
 export const setPage = (pageNumber) => ({
   type: SET_PAGE,

@@ -20,3 +20,4 @@ const Pagination = ({ page, total, current }) => {
 };
 
 export default Pagination;
+

@@ -8,9 +8,8 @@ import Pagination from "../../components/pagination/pagination";
 const HomePage = () => {
   const dispatch = useDispatch();
 
-  
   const currentPage = useSelector((state) => state.currentPage);
-  const elementsPerPage = 12 ;
+  const elementsPerPage = 12;
 
   const isFiltered = useSelector((state) => state.isFiltered);
   const allPokemons = useSelector((state) => state.pokemons || []);
@@ -29,23 +28,29 @@ const HomePage = () => {
   console.log("Initial pokemons list:", sortedPokemons);
 
 
-   if (sortingCriteria === "name") {
-     // console.log("Sorting by name");
-     sortedPokemons.sort((a, b) => a.name.localeCompare(b.name));
-   } else if (sortingCriteria === "attack") {
-     // console.log("Sorting by attack");
-     sortedPokemons.sort((a, b) => a.attack - b.attack);
-   }
 
+
+  if (sortingCriteria && sortingDirection) {
+    if (sortingCriteria === "name") {
+      // console.log("Sorting by name");
+      sortedPokemons.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortingCriteria === "attack") {
+      // console.log("Sorting by attack");
+      sortedPokemons.sort((a, b) => a.attack - b.attack);
+    }
+
+    if (sortingDirection === "desc") {
+      sortedPokemons.reverse();
+    }
+  }
 
   // console.log("Sorted by criteria pokemons list:", sortedPokemons);
 
-  if (sortingDirection === "desc") {
-    // console.log("Reversing order for descending");
-    sortedPokemons.reverse();
-  }
-
   // console.log("Sorted by direction pokemons list:", sortedPokemons);
+
+
+
+
 
   const totalPages = Math.ceil(sortedPokemons.length / elementsPerPage);
 
@@ -57,14 +62,16 @@ const HomePage = () => {
   );
   console.log("Pokemon to show:", currentPokemons);
 
- const handlePageChange = (pageNumber) => {
-   console.log("page change:", pageNumber);
-   dispatch(setPage(pageNumber));
- };
+  const handlePageChange = (pageNumber) => {
+    //  console.log("page change:", pageNumber);
+    dispatch(setPage(pageNumber));
+  };
 
   useEffect(() => {
-    dispatch(fetchPokemons());
-  }, [dispatch]);
+    if (allPokemons.length === 0) {
+      dispatch(fetchPokemons());
+    }
+  }, [dispatch, allPokemons]);
 
   return (
     <div>

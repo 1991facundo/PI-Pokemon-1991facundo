@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import "./detail.css";
 
 const DetailPage = () => {
@@ -24,13 +24,17 @@ const DetailPage = () => {
     fetchPokemon();
   }, [id]);
 
+
   return (
     currentPokemon && (
       <div className="detail-card">
-        {/* <button className="close-button" onClick={handleClose}>X</button> */}
+        <Link to="/home">
+          <button>
+            X
+          </button>
+        </Link>
         <h1>{currentPokemon.name}</h1>
         <img src={currentPokemon.image} alt={currentPokemon.name} />
-        {/* <div>ID: {currentPokemon.id}</div> */}
         <div>Life: {currentPokemon.life}</div>
         <div>Attack: {currentPokemon.attack}</div>
         <div>Defense: {currentPokemon.defense}</div>

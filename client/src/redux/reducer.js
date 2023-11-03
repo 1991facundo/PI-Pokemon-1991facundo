@@ -2,6 +2,7 @@ import {
   FETCH_REQUEST,
   FETCH_SUCCESS,
   FETCH_FAIL,
+  SET_TYPES,
   FILTER_BY_TYPE,
   FILTER_BY_ORIGIN,
   RESET_FILTERED_POKEMONS,
@@ -13,12 +14,13 @@ import {
 const initialState = {
   pokemons: [],
   filteredPokemons: [],
+  types: [],
   isFiltered: false,
   loading: false,
   error: null,
   searchTerm: "",
-  sortingCriteria: 'null',
-  sortingDirection: 'asc',
+  sortingCriteria: "null",
+  sortingDirection: "asc",
   currentPage: 1,
 };
 
@@ -44,6 +46,13 @@ const reducer = (state = initialState, action) => {
       };
 
     /*FILTRADO*/
+
+    case SET_TYPES:
+      return {
+        ...state,
+        types: action.payload,
+      };
+
     case FILTER_BY_TYPE:
       return {
         ...state,
