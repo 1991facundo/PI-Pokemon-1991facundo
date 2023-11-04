@@ -64,7 +64,6 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>ESTE ES EL HOMEPAGE</h1>
       <NavBar />
       <Cards pokemons={currentPokemons} />
       <Pagination

@@ -118,10 +118,11 @@ export const setPage = (pageNumber) => ({
   payload: pageNumber,
 });
 
-
 /*----------FORM----------*/
 
 export const createPokemon = (pokemonData) => async (dispatch) => {
+  dispatch({ type: CREATE_POKEMON, payload: pokemonData });
+
   try {
     const response = await fetch("http://localhost:3001/pokemons", {
       method: "POST",
@@ -135,8 +136,6 @@ export const createPokemon = (pokemonData) => async (dispatch) => {
       throw Error("Error creating Pokemon");
     }
 
-    const data = await response.json();
-    dispatch({ type: CREATE_POKEMON, payload: data });
   } catch (error) {
     console.error("Error creating Pokemon", error);
   }

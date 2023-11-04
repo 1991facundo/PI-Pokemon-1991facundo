@@ -15,6 +15,8 @@ router.get("/pokemons", getPokemonsHandler);
 
 router.post("/pokemons", createPokemonHandler);
 
+router.get("/pokemons/type", getTypeHandler);
+
 router.get("/pokemons/:id", getPokemonByIdHandler);
 
 module.exports = router;
