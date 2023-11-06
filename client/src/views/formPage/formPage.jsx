@@ -28,7 +28,7 @@ const FormPage = () => {
   const [isSuccessful, setIsSuccessful] = useState(false);
 
   const handleInputChange = async (e) => {
-    // Si el nombre es el que se está cambiando, conviértelo a minúsculas
+    
     const value =
       e.target.name === "name" ? e.target.value.toLowerCase() : e.target.value;
 
@@ -214,7 +214,7 @@ const FormPage = () => {
           ))}
         </div>
 
-        <div className={styles.errorMessages}>
+        <div className={styles.error}>
           {Array.isArray(errors) &&
             errors.map((error, index) => (
               <span key={index} className={styles.error}>
@@ -229,8 +229,8 @@ const FormPage = () => {
           </button>
 
           {isSuccessful && (
-            <div className={styles.successMessage}>
-              <span>Congratulations, you created a pokemon!</span>
+            <div className={styles.isSuccessfulMessage}>
+              <div>Congratulations, you created a pokemon!</div>
               <Link to="/home" onClick={handleOkClick}>
                 OK
               </Link>
@@ -248,12 +248,14 @@ const FormPage = () => {
           <div className={styles.cardContainer}>
             <img src={pokemon.image} alt={pokemon.image} />
             <h3>{pokemon.name}</h3>
+            <br />
             <p>Life: {pokemon.life}</p>
             <p>Attack: {pokemon.attack}</p>
             <p>Defense: {pokemon.defense}</p>
             <p>Speed: {pokemon.speed}</p>
             <p>Height: {pokemon.height}</p>
             <p>Weight: {pokemon.weight}</p>
+            <br />
             <div>
               {pokemon.types.map((type, index) => (
                 <span key={index}>

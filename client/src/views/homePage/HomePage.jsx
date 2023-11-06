@@ -22,7 +22,7 @@ const HomePage = () => {
 
   const sortedPokemons = [...pokemonsToShow];
 
-  // console.log("Initial pokemons list:", sortedPokemons);
+  console.log("Initial pokemons list:", sortedPokemons);
 
 
 
@@ -49,7 +49,7 @@ const HomePage = () => {
     firstPokemonIndex,
     lastPokemonIndex
   );
-  // console.log("Pokemon to show:", currentPokemons);
+  console.log("Pokemon to show:", currentPokemons);
 
   const handlePageChange = (pageNumber) => {
    

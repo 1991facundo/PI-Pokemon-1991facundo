@@ -53,7 +53,7 @@ export const searchPokemon = (name) => {
       const response = await axios.get(
         `http://localhost:3001/pokemons/name?name=${name}`
       );
-      // console.log("Response data:", response.data);
+     
       dispatch(
         fetchSuccess(
           Array.isArray(response.data) ? response.data : [response.data]
@@ -124,18 +124,7 @@ export const createPokemon = (pokemonData) => async (dispatch) => {
   dispatch({ type: CREATE_POKEMON, payload: pokemonData });
 
   try {
-    const response = await fetch("http://localhost:3001/pokemons", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(pokemonData),
-    });
-
-    if (!response.ok) {
-      throw Error("Error creating Pokemon");
-    }
-
+    await axios.post("http://localhost:3001/pokemons", pokemonData);
   } catch (error) {
     console.error("Error creating Pokemon", error);
   }

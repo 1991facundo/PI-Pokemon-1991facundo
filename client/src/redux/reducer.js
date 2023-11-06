@@ -30,6 +30,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
 
   switch (action.type) {
+
     /*POKEMON INFO*/
 
     case FETCH_REQUEST:
@@ -100,14 +101,14 @@ const reducer = (state = initialState, action) => {
     /* SORTING */
 
     case SET_SORTING_CRITERIA:
-      // console.log("Reducer, setting criteria to:", action.payload);
+     
       return {
         ...state,
         sortingCriteria: action.payload,
       };
 
     case SET_SORTING_DIRECTION:
-      // console.log("Reducer, setting direction to:", action.payload);
+
       return {
         ...state,
         sortingDirection: action.payload,
