@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./card.css";
+import styles from "../../assets/global.module.css";
 
 const Card = ({ pokemon }) => {
   const renderTypes = () => {
@@ -14,13 +14,19 @@ const Card = ({ pokemon }) => {
   };
 
   return (
-    <div className="card-container">
+    <div className={styles.cardContainer}>
       <img src={pokemon.image} alt={pokemon.name} />
+      <br />
       <h2>{pokemon.name}</h2>
+      <br />
       <div>
         <span>{renderTypes()}</span>
       </div>
-      <Link to={`/pokemon/${pokemon.id}`}>Ver Detalles</Link>
+      <br />
+      <Link to={`/pokemon/${pokemon.id}`}>
+        
+        <button className={styles.button}>DETAILS </button>
+      </Link>
     </div>
   );
 };

@@ -12,7 +12,7 @@ import {
   fetchTypes,
 } from "../../redux/actions";
 
-import "./navBar.css";
+import styles from "../../assets/global.module.css";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const NavBar = () => {
     if (type === "") {
       dispatch(resetFilteredPokemons());
     } else {
-      // console.log("FIlter by type:", type);
+      
       dispatch(filterByType(type));
     }
   };
@@ -36,10 +36,10 @@ const NavBar = () => {
     const origin = event.target.value;
 
     if (origin === "") {
-      // console.log("filter by all");
+      
       dispatch(resetFilteredPokemons());
     } else {
-      // console.log("filter by:", origin);
+      
       dispatch(filterByOrigin(origin));
     }
   };
@@ -74,10 +74,12 @@ const NavBar = () => {
   }, [dispatch]);
 
   return (
-    <div className="navbar-container">
+    <div className={styles.navBar}>
       <SearchBar />
 
-      <button onClick={handleShowAllClick}>Show All</button>
+      <button className={styles.button} onClick={handleShowAllClick}>
+        Show All
+      </button>
 
       {/* -----------FILTERS------------ */}
 
@@ -113,7 +115,7 @@ const NavBar = () => {
 
       <Link to={`/create`}>
         {" "}
-        <button>Create Pokemon</button>{" "}
+        <button className={styles.button}>Create Pokemon</button>{" "}
       </Link>
     </div>
   );

@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {searchPokemon} from '../../redux/actions'
 
-import "./searchBar.css";
+import styles from "../../assets/global.module.css"
 
 const SearchBar = () => {
     const dispatch = useDispatch()
@@ -15,9 +15,9 @@ const SearchBar = () => {
 
     const handleSearch = () => {
       const errorHandler = inputValue.trim();
-      // console.log(errorHandler)
+    
       if(!errorHandler.length) {
-        // console.log("hola")
+      
         return
       }
         dispatch(searchPokemon(inputValue))
@@ -25,14 +25,14 @@ const SearchBar = () => {
 
 
     return (
-      <div className="searchbar-container">
+      <div className="searchbarContainer">
         <input
           type="search"
           placeholder="Search Pokemon by name"
           value={inputValue}
           onChange={handleChange}
         />
-        <button onClick={handleSearch}>
+        <button className={styles.button} onClick={handleSearch}>
           Search
         </button>
       </div>

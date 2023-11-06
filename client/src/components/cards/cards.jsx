@@ -1,5 +1,5 @@
 import Card from "../card/card";
-import "./cards.css";
+import styles from "../../assets/global.module.css";
 
 const Cards = ({ pokemons }) => {
 
@@ -13,7 +13,7 @@ const Cards = ({ pokemons }) => {
   };
   
 
-  return <div className="cards-container">{renderCards()}</div>;
+  return <div className={styles.cardsContainer}>{renderCards()}</div>;
 };
 
 export default Cards;

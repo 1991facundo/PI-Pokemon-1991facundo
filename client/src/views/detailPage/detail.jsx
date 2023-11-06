@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import "./detail.css";
+import styles from "../../assets/global.module.css";
 
 const DetailPage = () => {
   const { id } = useParams();
@@ -24,24 +24,31 @@ const DetailPage = () => {
     fetchPokemon();
   }, [id]);
 
-
   return (
     currentPokemon && (
-      <div className="detail-card">
-        <Link to="/home">
-          <button>
-            X
-          </button>
-        </Link>
-        <h1>{currentPokemon.name}</h1>
-        <img src={currentPokemon.image} alt={currentPokemon.name} />
-        <div>Life: {currentPokemon.life}</div>
-        <div>Attack: {currentPokemon.attack}</div>
-        <div>Defense: {currentPokemon.defense}</div>
-        <div>Speed: {currentPokemon.speed}</div>
-        <div>Height: {currentPokemon.height}</div>
-        <div>Weight: {currentPokemon.weight}</div>
-        <div>Type: {currentPokemon.types.join(" / ")}</div>
+      <div className={styles.detailCard}>
+        
+        <div>
+          <Link to="/home">
+            <button className={styles.button}>X</button>
+          </Link>
+        </div>
+
+        <div>
+          <h1>{currentPokemon.name}</h1>
+          <img src={currentPokemon.image} alt={currentPokemon.name} />
+        </div>
+
+        <div>
+          <div>Life: {currentPokemon.life}</div>
+          <div>Attack: {currentPokemon.attack}</div>
+          <div>Defense: {currentPokemon.defense}</div>
+          <div>Speed: {currentPokemon.speed}</div>
+          <div>Height: {currentPokemon.height}</div>
+          <div>Weight: {currentPokemon.weight}</div>
+          <div>Type: {currentPokemon.types.join(" / ")}</div>
+        </div>
+
       </div>
     )
   );

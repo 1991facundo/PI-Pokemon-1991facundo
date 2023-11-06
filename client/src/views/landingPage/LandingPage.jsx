@@ -2,7 +2,7 @@
 import {useNavigate} from 'react-router-dom'
 
 //STYLE
-import "./landingPage.css"
+import styles from "../../assets/global.module.css"
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -12,12 +12,17 @@ function LandingPage() {
   };
 
   return (
-    <div className="landing-rootDiv">
-      <div className='landing-div'>
-        <h1>LANDING PAGE POKEMON API</h1>
+    <div className={styles.landingRootDiv}>
+      
+      <div className={styles.landingDiv}>
+        <h1>PokeAPI by Facundo</h1>
 
-        <button onClick={handleButtonClick}>IR A LA HOME</button>
+        <button className={styles.button} onClick={handleButtonClick}>
+          HOME
+        </button>
+
       </div>
+
     </div>
   );
 };

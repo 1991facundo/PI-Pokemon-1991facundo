@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  fetchPokemons, fetchTypes } from "../../redux/actions";
+import { fetchPokemons, fetchTypes } from "../../redux/actions";
 import { validations } from "./validations";
 import { Link } from "react-router-dom";
+
+import styles from "../../assets/global.module.css";
 
 const FormPage = () => {
   const dispatch = useDispatch();
@@ -22,10 +24,8 @@ const FormPage = () => {
     types: [],
   });
 
-const [nameErrorMessage, setNameErrorMessage] = useState("");
-const [isSuccessful, setIsSuccessful] = useState(false);
-
-
+  const [nameErrorMessage, setNameErrorMessage] = useState("");
+  const [isSuccessful, setIsSuccessful] = useState(false);
 
   const handleInputChange = async (e) => {
     // Si el nombre es el que se está cambiando, conviértelo a minúsculas
@@ -59,34 +59,32 @@ const [isSuccessful, setIsSuccessful] = useState(false);
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newErrors = validations(pokemon, types);
+    setErrors(newErrors);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const newErrors = validations(pokemon, types);
-  setErrors(newErrors);
+    if (!newErrors.length) {
+      const response = await fetch("http://localhost:3001/pokemons", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(pokemon),
+      });
 
-  if (!newErrors.length) {
-    const response = await fetch("http://localhost:3001/pokemons", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(pokemon),
-    });
-
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      setNameErrorMessage(errorMessage);
-    } else {
-      
-      setIsSuccessful(true);
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        setNameErrorMessage(errorMessage);
+      } else {
+        setIsSuccessful(true);
+      }
     }
-  }
-};
+  };
 
-const handleOkClick = () => {
-  dispatch(fetchPokemons());
-};
+  const handleOkClick = () => {
+    dispatch(fetchPokemons());
+  };
 
   const handleTypeChange = (e) => {
     const selectedType = e.target.value;
@@ -106,7 +104,6 @@ const handleOkClick = () => {
       types: newTypes,
     });
 
-  
     const tempPokemon = {
       ...pokemon,
       types: newTypes,
@@ -127,22 +124,29 @@ const handleOkClick = () => {
   }, [dispatch]);
 
   return (
-    <div className="form-container">
+    <div className={styles.formContainer}>
       <form onSubmit={handleSubmit}>
         <input
+          className={styles.input}
           name="name"
           onChange={handleInputChange}
           placeholder="Name"
           required
         />
-        {nameErrorMessage && <span className="error">{nameErrorMessage}</span>}
+        {nameErrorMessage && (
+          <span className={styles.error}>{nameErrorMessage}</span>
+        )}
+
         <input
+          className={styles.input}
           name="image"
           onChange={handleInputChange}
           placeholder="Image"
           required
         />
+
         <input
+          className={styles.input}
           name="life"
           type="number"
           onChange={handleInputChange}
@@ -150,6 +154,7 @@ const handleOkClick = () => {
           required
         />
         <input
+          className={styles.input}
           name="attack"
           type="number"
           onChange={handleInputChange}
@@ -157,6 +162,7 @@ const handleOkClick = () => {
           required
         />
         <input
+          className={styles.input}
           name="defense"
           type="number"
           onChange={handleInputChange}
@@ -164,24 +170,28 @@ const handleOkClick = () => {
           required
         />
         <input
+          className={styles.input}
           name="speed"
           type="number"
           onChange={handleInputChange}
           placeholder="Speed"
         />
         <input
+          className={styles.input}
           name="height"
           type="number"
           onChange={handleInputChange}
           placeholder="Height"
         />
         <input
+          className={styles.input}
           name="weight"
           type="number"
           onChange={handleInputChange}
           placeholder="Weight"
         />
-        <select onChange={handleTypeChange}>
+
+        <select className={styles.select} onChange={handleTypeChange}>
           <option value="">Type</option>
           {types.map((type) => (
             <option key={type} value={type}>
@@ -189,66 +199,74 @@ const handleOkClick = () => {
             </option>
           ))}
         </select>
-        <div className="selected-types">
+
+        <div className={styles.selectedTypes}>
           {pokemon.types.map((type, index) => (
-            <div key={index} className="type-container">
-              <span className="type">{type}</span>
-              <span className="close-type" onClick={() => removeType(type)}>
+            <div key={index} className={styles.typeContainer}>
+              <span className={styles.type}>{type}</span>
+              <span
+                className={styles.closeType}
+                onClick={() => removeType(type)}
+              >
                 X
               </span>
             </div>
           ))}
         </div>
-        <div className="error-messages">
+
+        <div className={styles.errorMessages}>
           {Array.isArray(errors) &&
             errors.map((error, index) => (
-              <span key={index} className="error">
+              <span key={index} className={styles.error}>
                 {error}
               </span>
             ))}
         </div>
 
-        {/* /*PREVIEW */}
+        <div>
+          <button className={styles.button} type="submit">
+            Create
+          </button>
 
-        {pokemon.name && (
-          <div className="card-preview">
-            <div className="card-container">
-              <img src={pokemon.image} alt={pokemon.image} />
-              <h3>{pokemon.name}</h3>
-              <p>Life: {pokemon.life}</p>
-              <p>Attack: {pokemon.attack}</p>
-              <p>Defense: {pokemon.defense}</p>
-              <p>Speed: {pokemon.speed}</p>
-              <p>Height: {pokemon.height}</p>
-              <p>Weight: {pokemon.weight}</p>
-              <div>
-                {pokemon.types.map((type, index) => (
-                  <span key={index}>
-                    {index !== 0 && " / "}
-                    <span className="type-preview">{type}</span>
-                  </span>
-                ))}
-              </div>
+          {isSuccessful && (
+            <div className={styles.successMessage}>
+              <span>Congratulations, you created a pokemon!</span>
+              <Link to="/home" onClick={handleOkClick}>
+                OK
+              </Link>
+            </div>
+          )}
+
+          <Link to="/home" onClick={handleOkClick}>
+            <button className={styles.button}>Close Creation Form</button>
+          </Link>
+        </div>
+      </form>
+
+      {pokemon.name && (
+        <div className={styles.cardPreview}>
+          <div className={styles.cardContainer}>
+            <img src={pokemon.image} alt={pokemon.image} />
+            <h3>{pokemon.name}</h3>
+            <p>Life: {pokemon.life}</p>
+            <p>Attack: {pokemon.attack}</p>
+            <p>Defense: {pokemon.defense}</p>
+            <p>Speed: {pokemon.speed}</p>
+            <p>Height: {pokemon.height}</p>
+            <p>Weight: {pokemon.weight}</p>
+            <div>
+              {pokemon.types.map((type, index) => (
+                <span key={index}>
+                  {index !== 0 && " / "}
+                  <span className={styles.typePreview}>{type}</span>
+                </span>
+              ))}
             </div>
           </div>
-        )}
-        <button type="submit">Create</button>
-        {isSuccessful && (
-          <div>
-            <span>Congratulations, you created a pokemon!</span>
-            <Link to="/home" onClick={handleOkClick}>
-              OK
-            </Link>
-          </div>
-        )}
-
-        <Link to="/home" onClick={handleOkClick}>
-          <button>Close Creation Form</button>
-        </Link>
-      </form>
+        </div>
+      )}
     </div>
   );
 };
-
 
 export default FormPage;
