@@ -22,7 +22,7 @@ const getPokemonById = async (id) => {
     return filteredData;
   }
 
-  throw new Error("Pokemon not found");
+  throw Error("Pokemon not found");
 };
 
 module.exports = getPokemonById;

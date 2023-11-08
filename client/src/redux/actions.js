@@ -68,10 +68,16 @@ export const searchPokemon = (name) => {
 
 /*----------FILTER POKEMONS----------*/
 
-export const filterByOrigin = (origin) => ({
-  type: FILTER_BY_ORIGIN,
-  payload: origin,
-});
+export const filterByOrigin = (origin) => {
+  return (dispatch) => {
+    dispatch({
+      type: FILTER_BY_ORIGIN,
+      payload: origin,
+    });
+    
+    dispatch(setPage(1));
+  };
+};
 
 export const setTypes = (types) => ({
   type: SET_TYPES,
@@ -90,10 +96,15 @@ export const fetchTypes = () => {
   };
 };
 
-export const filterByType = (pokemonType) => ({
-  type: FILTER_BY_TYPE,
-  payload: pokemonType,
-});
+export const filterByType = (pokemonType) => {
+  return (dispatch) => {
+    dispatch({
+      type: FILTER_BY_TYPE,
+      payload: pokemonType,
+    });
+    dispatch(setPage(1));
+  };
+};
 
 export const resetFilteredPokemons = () => ({
   type: RESET_FILTERED_POKEMONS,
@@ -129,3 +140,5 @@ export const createPokemon = (pokemonData) => async (dispatch) => {
     console.error("Error creating Pokemon", error);
   }
 };
+
+

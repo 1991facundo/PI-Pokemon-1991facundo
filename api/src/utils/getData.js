@@ -1,4 +1,5 @@
 const getData = async (data) => {
+
   const typesNames = data.types.map((type) => type.type.name);
 
   const hpStat = data.stats.find((stat) => stat.stat.name === "hp");
@@ -13,10 +14,15 @@ const getData = async (data) => {
   const speedStat = data.stats.find((stat) => stat.stat.name === "speed");
   const speedPoints = speedStat.base_stat;
 
-  let image = data.sprites.other.home.front_default;
-  if (image === null) {
-    image = data.sprites.other["official-artwork"].front_default;
-  }
+  // let image = data.sprites.other.home.front_default;
+  // if (image === null) {
+  //   image = data.sprites.other["official-artwork"].front_default;
+  // }
+
+   let image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${data.id}.png`;
+   if (image === null) {
+     image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${data.id}.png`;
+   }
 
   const obj = {
     id: data.id,
@@ -31,7 +37,7 @@ const getData = async (data) => {
     types: typesNames,
   };
 
-  if (!obj) throw new Error("Error getting data");
+  if (!obj) throw Error("Error getting data");
   return obj;
 };
 

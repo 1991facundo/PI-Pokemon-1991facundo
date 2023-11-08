@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import styles from "../../assets/global.module.css";
@@ -9,25 +10,21 @@ const DetailPage = () => {
   useEffect(() => {
     const fetchPokemon = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/pokemons/${id}`);
-        if (!response.ok) {
-          console.error("Failed to fetch pokemon:", response.statusText);
-          return;
-        }
-        const data = await response.json();
-        setCurrentPokemon(data);
-        // console.log(data);
+        const response = await axios.get(
+          `http://localhost:3001/pokemons/${id}`
+        );
+        setCurrentPokemon(response.data);
       } catch (error) {
         console.error("Error fetching pokemon:", error);
       }
     };
+
     fetchPokemon();
   }, [id]);
 
   return (
     currentPokemon && (
       <div className={styles.detailCard}>
-        
         <div>
           <Link to="/home">
             <button className={styles.button}>X</button>
@@ -48,7 +45,6 @@ const DetailPage = () => {
           <div>Weight: {currentPokemon.weight}</div>
           <div>Type: {currentPokemon.types.join(" / ")}</div>
         </div>
-
       </div>
     )
   );

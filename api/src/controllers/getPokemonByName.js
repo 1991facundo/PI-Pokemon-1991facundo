@@ -10,10 +10,6 @@ const getPokemonByName = async (name) => {
     throw Error("Error name not defined");
   }
 
-  try {
-
-    
-
     const lowerCase = name.toLowerCase();
 
     const localPokemons = await Pokemon.findAll({
@@ -34,9 +30,7 @@ const getPokemonByName = async (name) => {
 
       return filteredData;
     }
-  } catch (error) {
-    throw new Error(error.message);
-  }
+ 
 };
 
 module.exports = getPokemonByName;

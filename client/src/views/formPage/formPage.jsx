@@ -28,7 +28,6 @@ const FormPage = () => {
   const [isSuccessful, setIsSuccessful] = useState(false);
 
   const handleInputChange = async (e) => {
-    
     const value =
       e.target.name === "name" ? e.target.value.toLowerCase() : e.target.value;
 
@@ -87,14 +86,16 @@ const FormPage = () => {
   };
 
   const handleTypeChange = (e) => {
+    if (e.target.value === "") {
+      return;
+    }
+
     const selectedType = e.target.value;
     let newTypes = [...pokemon.types];
 
-    if (newTypes.includes(selectedType)) {
-      newTypes = newTypes.filter((type) => type !== selectedType);
-    } else if (newTypes.length < 2) {
+    if (!newTypes.includes(selectedType) && newTypes.length < 2) {
       newTypes.push(selectedType);
-    } else {
+    } else if (newTypes.length >= 2) {
       alert("Choose max 2 types");
       return;
     }

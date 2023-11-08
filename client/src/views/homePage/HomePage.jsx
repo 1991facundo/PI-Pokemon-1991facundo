@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPokemons, setPage } from "../../redux/actions";
 import NavBar from "../../components/navBar/navBar";
 import Cards from "../../components/cards/cards";
 import Pagination from "../../components/pagination/pagination";
+import styles from "../../assets/global.module.css"
+import loadingGif from "../../assets/loading.gif";
 
 const HomePage = () => {
   const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.loading);
 
   const currentPage = useSelector((state) => state.currentPage);
   const elementsPerPage = 12;
@@ -22,9 +26,7 @@ const HomePage = () => {
 
   const sortedPokemons = [...pokemonsToShow];
 
-  console.log("Initial pokemons list:", sortedPokemons);
-
-
+  // console.log("Initial pokemons list:", sortedPokemons);
 
 
   if (sortingCriteria && sortingDirection) {
@@ -49,7 +51,8 @@ const HomePage = () => {
     firstPokemonIndex,
     lastPokemonIndex
   );
-  console.log("Pokemon to show:", currentPokemons);
+  
+  // console.log("Pokemon to show:", currentPokemons);
 
   const handlePageChange = (pageNumber) => {
    
@@ -60,7 +63,15 @@ const HomePage = () => {
     if (allPokemons.length === 0) {
       dispatch(fetchPokemons());
     }
-  }, [dispatch, allPokemons]);
+  }, [dispatch, allPokemons.length]);
+
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <img src={loadingGif} alt="Cargando..." />
+      </div>
+    );
+  }
 
   return (
     <div>

@@ -5,13 +5,10 @@ const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
 
 const createPokemon = async ({ name, image, life, attack, defense, speed, height, weight, types }) => {
 
-  //chekear en la base de datos que no se repita el nombre
   const existingPokemon = await Pokemon.findOne({ where: { name: name } });
   if(existingPokemon){throw Error ('Pokemon with this name already exists')}
 
-  // //chekear en la API que no exista un pokemon con ese nombre
-  // const response = await axios.get(`${baseUrl}${name.toLowerCase()}`);
-  // if (response.data) {throw Error('Pokemon with this name already exists');}
+
   try {
     const response = await axios.get(`${baseUrl}${name.toLowerCase()}`);
     if (response.data) {
@@ -23,7 +20,6 @@ const createPokemon = async ({ name, image, life, attack, defense, speed, height
     }
   }
     
-
     let typesInstances = [];
     
    for (let typeName of types) {

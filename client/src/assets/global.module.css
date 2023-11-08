@@ -16,6 +16,20 @@ body {
   padding: 0;
 }
 
+/*HOMEPAGE*/
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loadingContainer img {
+  width: 200px;
+  
+}
+
 /* BUTTONS */
 
 .button {
