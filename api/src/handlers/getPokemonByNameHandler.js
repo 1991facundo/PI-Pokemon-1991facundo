@@ -7,12 +7,10 @@ const getPokemonByNameHandler = async (req, res) => {
     const pokemon = await getPokemonByName(name);
     res.status(200).json(pokemon);
   } catch (error) {
-    if (error.message.includes("not found")) {
-      res.status(404).send(error.message);
-    } else {
-      res.status(500).send(error.message);
+   
+    res.status(404).send("pokemon not found")
     }
-  }
+    
 };
 
 module.exports = getPokemonByNameHandler;

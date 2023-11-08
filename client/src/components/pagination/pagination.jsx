@@ -8,6 +8,20 @@ const Pagination = ({ page, total, current }) => {
 
   return (
     <div>
+
+
+
+      <button
+        onClick={() => page(current - 1)}
+        disabled={current === 1}
+        className={styles.button}
+      >
+        Previous
+      </button>
+
+
+
+
       {pageNumbers.map((pageNumber) => {
         let buttonClass = styles.button;
         if (pageNumber === current) {
@@ -25,6 +39,20 @@ const Pagination = ({ page, total, current }) => {
           </button>
         );
       })}
+
+      
+
+
+      <button
+        onClick={() => page(current + 1)}
+        disabled={current === total}
+        className={styles.button}
+      >
+        Next
+      </button>
+
+
+
     </div>
   );
 };

@@ -61,7 +61,11 @@ export const searchPokemon = (name) => {
       );
       dispatch(setPage(1));
     } catch (error) {
-      dispatch(fetchFail(error.message));
+      const errorMessage =
+        error.response && error.response.data
+      dispatch(fetchFail(errorMessage));
+      
+      window.alert(errorMessage);
     }
   };
 };
